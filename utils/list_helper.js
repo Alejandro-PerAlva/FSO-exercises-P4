@@ -17,8 +17,27 @@ const favoriteBlog = (blogs) => {
     })
   }
 
+const lodash = require('lodash')
+
+const mostBlogs = (blogs) => {
+    if (blogs.length === 0) {
+      return null
+    }
+
+    const authorCount = lodash.countBy(blogs, 'author')
+
+    // eslint-disable-next-line no-unused-vars
+    const mostBlogsAuthor = lodash.maxBy(Object.entries(authorCount), ([author, count]) => count)
+
+    return {
+      author: mostBlogsAuthor[0],
+      blogs: mostBlogsAuthor[1]
+    }
+  }
+
   module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
   }
