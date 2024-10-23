@@ -9,10 +9,7 @@ const { test, after, beforeEach, describe } = require('node:test')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  for (const blog of initialBlogs) {
-    let blogObject = new Blog(blog)
-    await blogObject.save()
-  }
+  await Blog.insertMany(initialBlogs)
 })
 
 describe('POST /api/blogs', () => {
@@ -113,6 +110,26 @@ describe('DELETE /api/blogs/:id', () => {
     assert(!titles.includes(blogToDelete.title))
   })
 })
+
+describe('PUT /api/blogs/:id', () => {
+    test('a blog\'s likes can be updated', async () => {
+      const blogsAtStart = await blogsInDb()
+      const blogToUpdate = blogsAtStart[0]
+
+      const updatedLikes = { likes: 10 }
+
+      await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send(updatedLikes)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+      const blogsAtEnd = await blogsInDb()
+      const updatedBlog = blogsAtEnd.find(blog => blog.id === blogToUpdate.id)
+
+      assert.strictEqual(updatedBlog.likes, 10)
+    })
+  })
 
 after(async () => {
   await mongoose.connection.close()
