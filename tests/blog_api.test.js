@@ -23,7 +23,7 @@ const initialBlogs = [
 ]
 
 beforeEach(async () => {
-  await Blog.deleteMany({}) // Limpia la colección
+  await Blog.deleteMany({})
   let blogObject = new Blog(initialBlogs[0])
   await blogObject.save()
 
@@ -37,6 +37,7 @@ describe('GET /api/blogs', () => {
       .get('/api/blogs')
       .expect(200)
       .expect('Content-Type', /application\/json/)
+
     assert.strictEqual(response.status, 200)
     assert.match(response.headers['content-type'], /application\/json/)
   })
@@ -45,6 +46,16 @@ describe('GET /api/blogs', () => {
     const response = await api.get('/api/blogs')
 
     assert.strictEqual(response.body.length, initialBlogs.length)
+  })
+
+  test('the unique identifier property of the blog posts is named id', async () => {
+    const response = await api.get('/api/blogs')
+    const blogs = response.body
+
+    blogs.forEach(blog => {
+      assert(blog.id, 'Each blog should have an id property')
+      assert.strictEqual(blog._id, undefined, 'The property _id should not exist')
+    })
   })
 })
 
