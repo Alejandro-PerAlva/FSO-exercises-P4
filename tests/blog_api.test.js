@@ -50,6 +50,24 @@ describe('POST /api/blogs', () => {
     const titles = response.body.map(r => r.title)
     assert(titles.includes('New Blog Post'))
   })
+  
+  test('if the likes property is missing, it defaults to 0', async () => {
+    const newBlogWithoutLikes = {
+      title: "Blog without likes",
+      author: "Jane Doe",
+      url: "http://example.com/blog-without-likes"
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlogWithoutLikes)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+    const addedBlog = response.body.find(blog => blog.title === "Blog without likes")
+    assert.strictEqual(addedBlog.likes, 0)
+  })
 })
 
 describe('GET /api/blogs', () => {
