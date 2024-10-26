@@ -2,8 +2,19 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "Random Blog",
+    "title": "Another Random Blog",
     "author": "Ale",
     "url": "https://blog.carleslc.me",
-    "likes": 12
+    "likes": 12,
+    "notes": []
+}
+
+###
+POST http://localhost:3001/api/users 
+content-type: application/json
+
+{
+    "username": "Prueba",
+    "name": "Ale",
+    "password": "salainen"
 }
