@@ -5,6 +5,12 @@ const User = require('../models/user')
 
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body
+    if (!username) {
+        return response.status(400).json({ error: 'Username is required' })
+    }
+    if (!password) {
+        return response.status(400).json({ error: 'Password is required' })
+    }
 
   const user = await User.findOne({ username })
   const passwordCorrect = user === null
@@ -29,7 +35,7 @@ loginRouter.post('/', async (request, response) => {
   )
   response
     .status(200)
-    .send({ token, username: user.username, name: user.name })
+    .send({ token, username: user.username, name: user.name , user })
 })
 
 module.exports = loginRouter

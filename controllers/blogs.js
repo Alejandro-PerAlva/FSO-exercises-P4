@@ -17,7 +17,7 @@ blogsRouter.post('/', async (request, response) => {
     author: request.body.author,
     url: request.body.url,
     likes: request.body.likes || 0,
-    user: user._id,
+    user: user._id
   })
 
   const savedBlog = await blog.save()
@@ -25,6 +25,7 @@ blogsRouter.post('/', async (request, response) => {
   await user.save()
   response.status(201).json(savedBlog)
 })
+
 
 blogsRouter.delete('/:id', async (request, response) => {
   const user = request.user
