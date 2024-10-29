@@ -10,11 +10,11 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:3001/api/users 
+POST https://fso-exercises-p4.onrender.com/api/users
 content-type: application/json
 
 {
-    "username": "Prueba",
+    "username": "Ale",
     "name": "Ale",
-    "password": "salainen"
+    "password": "1234"
 }

@@ -1,0 +1,7 @@
+POST https://fso-exercises-p4.onrender.com/api/login
+content-type: application/json
+
+{
+    "username": "Ale",
+    "password": "1234"
+}
