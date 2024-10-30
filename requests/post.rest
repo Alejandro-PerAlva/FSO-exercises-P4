@@ -1,12 +1,12 @@
-POST http://localhost:3001/api/blogs
+POST https://fso-exercises-p4.onrender.com/api/blogs
 content-type: application/json
 
 {
-    "title": "Another Random Blog",
+    "title": "Test1",
     "author": "Ale",
     "url": "https://blog.carleslc.me",
     "likes": 12,
-    "notes": []
+    "user": "Ale"
 }
 
 ###
