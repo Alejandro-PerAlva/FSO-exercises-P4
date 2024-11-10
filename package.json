@@ -12,6 +12,7 @@
     "logs:prod": "fly logs",
     "lint": "eslint . --ignore-pattern \"dist/*\"",
     "lintFix": "eslint . --fix --ignore-pattern \"dist/*\"",
+    "start:test": "cross-env NODE_ENV=test node index.js",
     "create": "mkdir controllers models utils tests services && touch index.js app.js .gitignore .env utils/config.js utils/logger.js utils/middleware.js && npm install && npm init @eslint/config@latest"
   },
   "author": "Alejandro Pérez Álvarez",
